@@ -4,64 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For Manaar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background: #0f0000;
+            background: #120005;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
-            padding: 20px 0;
-            font-family: 'Georgia', serif;
+            padding: 30px 0;
+            font-family: 'Quicksand', sans-serif;
             color: white;
             overflow-x: hidden;
         }
 
-        /* Photo Section */
+        /* Floating Hearts Background */
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .heart-particle {
+            position: absolute;
+            color: rgba(255, 77, 77, 0.3);
+            font-size: 20px;
+            animation: float 6s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Scrapbook Photo Section */
         .photo-gallery {
+            position: relative;
+            z-index: 2;
             display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
+            gap: 15px;
+            margin-bottom: 40px;
             padding: 10px;
         }
 
         .photo-gallery img {
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 110px;
             object-fit: cover;
-            border: 3px solid white;
-            border-radius: 10px;
-            transform: rotate(-5deg);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            border: 6px solid white;
+            border-bottom: 20px solid white; /* Polaroid look */
+            border-radius: 2px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.4);
+            transition: transform 0.3s;
         }
 
-        .photo-gallery img:nth-child(2) {
-            transform: rotate(5deg);
-            margin-top: 10px;
+        .photo-gallery img:nth-child(1) { transform: rotate(-8deg); }
+        .photo-gallery img:nth-child(2) { transform: rotate(2deg); }
+        .photo-gallery img:nth-child(3) { transform: rotate(8deg); }
+
+        .header {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            margin-bottom: 40px;
         }
 
         .header h1 {
-            color: #ff4d4d;
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-            text-align: center;
-            margin-bottom: 20px;
+            font-family: 'Dancing Script', cursive;
+            color: #ffb3b3;
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px rgba(255, 77, 77, 0.5);
         }
 
-        /* Flip Cards */
+        /* Cute Flip Cards */
         .card-container {
-            width: 300px;
+            position: relative;
+            z-index: 2;
+            width: 320px;
             height: 180px;
             perspective: 1000px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .card-inner {
             position: relative;
             width: 100%;
             height: 100%;
-            transition: transform 0.6s;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
             transform-style: preserve-3d;
             cursor: pointer;
         }
@@ -78,26 +118,40 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 15px;
-            padding: 15px;
-            border: 1px solid #ff4d4d;
+            border-radius: 20px;
+            padding: 25px;
             text-align: center;
+            box-shadow: 0 10px 25px rgba(255, 77, 77, 0.2);
         }
 
         .card-front {
-            background: #1a0505;
+            background: linear-gradient(135deg, #2a0505 0%, #4a0e0e 100%);
+            border: 2px solid #ffb3b3;
             color: #ffcccc;
+            font-size: 1.3rem;
+            font-weight: 600;
         }
 
         .card-back {
             background: #ff4d4d;
             color: white;
             transform: rotateY(180deg);
-            font-size: 0.9rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .tap-hint {
+            font-size: 0.8rem;
+            color: #ffb3b3;
+            margin-bottom: 10px;
+            opacity: 0.7;
         }
     </style>
 </head>
 <body>
+
+    <div class="hearts-bg" id="hearts"></div>
 
     <div class="photo-gallery">
         <img src="pic1.jpg" alt="Us">
@@ -106,22 +160,37 @@
     </div>
 
     <div class="header">
-        <h1>Propose Day, Manaar</h1>
+        <h1>For Manaar</h1>
+        <p class="tap-hint">Tap a card to reveal a secret...</p>
     </div>
 
     <div class="card-container" onclick="this.classList.toggle('flipped')">
         <div class="card-inner">
-            <div class="card-front">A question for you...</div>
-            <div class="card-back">I know we are miles apart right now, but would you let me be the one who makes you smile every day for the rest of our lives?</div>
+            <div class="card-front">A little question...</div>
+            <div class="card-back">I know we're far apart, but I wanted to ask: Will you let me keep being the luckiest guy in the world by your side?</div>
         </div>
     </div>
 
     <div class="card-container" onclick="this.classList.toggle('flipped')">
         <div class="card-inner">
-            <div class="card-front">Why you?</div>
-            <div class="card-back">Because nobody else sees the world the way you do, and nobody else makes me feel like I'm finally home.</div>
+            <div class="card-front">To my favorite person</div>
+            <div class="card-back">Manaar, you’re the best part of every day. Distance is just a test to see how far love can travel, and I'd travel anywhere for you.</div>
         </div>
     </div>
 
+    <script>
+        function createHeart() {
+            const container = document.getElementById('hearts');
+            const heart = document.createElement('div');
+            heart.className = 'heart-particle';
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            heart.style.fontSize = (Math.random() * 10 + 10) + 'px';
+            container.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 6000);
+        }
+        setInterval(createHeart, 400);
+    </script>
 </body>
 </html>
